@@ -19,40 +19,40 @@ class BankAccount:
         self.balance = balance
         self.transactions = []   # stores history of deposits/withdrawals
 
-    # Method to deposit money
+    # ========================== Method to deposit money =================
     def deposit(self, amount):
         if amount <= 0:
-            print("  ❌ Amount must be greater than 0.")
+            print(" Amount must be greater than 0.")
             return
         self.balance += amount
         self.transactions.append(f"Deposited : +₹{amount}")
-        print(f"  ✅ ₹{amount} deposited successfully!")
-        print(f"  💰 New Balance: ₹{self.balance}")
+        print(f"₹{amount} deposited successfully!")
+        print(f"New Balance: ₹{self.balance}")
 
-    # Method to withdraw money
+    # ========================== Method to withdraw money =================
     def withdraw(self, amount):
         if amount <= 0:
-            print("  ❌ Amount must be greater than 0.")
+            print(" Amount must be greater than 0.")
             return
         if amount > self.balance:
-            print("  ❌ Not enough balance!")
-            print(f"  💰 Available Balance: ₹{self.balance}")
+            print("Not enough balance!")
+            print(f" Available Balance: ₹{self.balance}")
             return
         self.balance -= amount
         self.transactions.append(f"Withdrawn  : -₹{amount}")
-        print(f"  ✅ ₹{amount} withdrawn successfully!")
-        print(f"  💰 Remaining Balance: ₹{self.balance}")
+        print(f"₹{amount} withdrawn successfully!")
+        print(f"Remaining Balance: ₹{self.balance}")
 
-    # Method to check balance
+    # =============== Method to check balance =============
     def check_balance(self):
-        print(f"  💰 Account Balance: ₹{self.balance}")
+        print(f"Account Balance: ₹{self.balance}")
 
-    # Method to show all transactions
+    # ========================== Method to show all transactions =================
     def show_transactions(self):
         if len(self.transactions) == 0:
-            print("  📭 No transactions yet.")
+            print("No transactions yet.")
         else:
-            print(f"  📋 Transaction History for {self.name}:")
+            print(f"Transaction History for {self.name}:")
             print("  " + "-" * 30)
             for t in self.transactions:
                 print(f"  {t}")
@@ -88,14 +88,14 @@ class Bank:
         password = input("  Set a password        : ").strip()
 
         if name == "" or password == "":
-            print("  ❌ Name and password cannot be empty.")
+            print(" Name and password cannot be empty.")
             return
 
         opening_balance = input("  Opening balance (₹)  : ").strip()
 
         # Check if opening balance is a valid number
         if not opening_balance.isdigit():
-            print("  ❌ Please enter a valid amount.")
+            print(" Please enter a valid amount.")
             return
 
         opening_balance = int(opening_balance)
@@ -106,9 +106,9 @@ class Bank:
         # Add it to our list of accounts
         self.accounts.append(new_account)
 
-        print(f"\n  ✅ Account created successfully!")
-        print(f"  📌 Your Account Number : {self.next_account_number}")
-        print(f"  📌 Keep this number safe to login.\n")
+        print(f"\n  Account created successfully!")
+        print(f"  Your Account Number : {self.next_account_number}")
+        print(f"  Keep this number safe to login.\n")
 
         # Increase account number for next person
         self.next_account_number += 1
@@ -126,29 +126,29 @@ class Bank:
         acc_input = input("  Enter Account Number : ").strip()
 
         if not acc_input.isdigit():
-            print("  ❌ Invalid account number.")
+            print("  Invalid account number.")
             return None
 
         acc_number = int(acc_input)
         account = self.find_account(acc_number)
 
         if account is None:
-            print("  ❌ Account not found.")
+            print(" Account not found.")
             return None
 
         password = input("  Enter Password       : ").strip()
 
         if account.password != password:
-            print("  ❌ Wrong password.")
+            print(" Wrong password.")
             return None
 
-        print(f"\n  ✅ Welcome, {account.name}!")
+        print(f"\n  Welcome, {account.name}!")
         return account   # return the account if login is successful
 
     # Show all accounts (admin feature)
     def show_all_accounts(self):
         if len(self.accounts) == 0:
-            print("\n  📭 No accounts found in the bank.")
+            print("\n No accounts found in the bank.")
             return
 
         print(f"\n  === All Accounts in {self.bank_name} ===")
@@ -165,35 +165,35 @@ class Bank:
         to_acc_input = input("  Enter recipient Account Number : ").strip()
 
         if not to_acc_input.isdigit():
-            print("  ❌ Invalid account number.")
+            print(" Invalid account number.")
             return
 
         to_acc_number = int(to_acc_input)
 
         if to_acc_number == from_account.account_number:
-            print("  ❌ You cannot transfer to your own account.")
+            print(" You cannot transfer to your own account.")
             return
 
         to_account = self.find_account(to_acc_number)
 
         if to_account is None:
-            print("  ❌ Recipient account not found.")
+            print(" Recipient account not found.")
             return
 
         amount_input = input("  Enter amount to transfer (₹) : ").strip()
 
         if not amount_input.isdigit():
-            print("  ❌ Please enter a valid amount.")
+            print(" Please enter a valid amount.")
             return
 
         amount = int(amount_input)
 
         if amount <= 0:
-            print("  ❌ Amount must be greater than 0.")
+            print(" Amount must be greater than 0.")
             return
 
         if amount > from_account.balance:
-            print("  ❌ Not enough balance to transfer.")
+            print(" Not enough balance to transfer.")
             return
 
         # Deduct from sender, add to receiver
@@ -203,15 +203,15 @@ class Bank:
         from_account.transactions.append(f"Transferred: -₹{amount} to Acc {to_acc_number}")
         to_account.transactions.append(f"Received   : +₹{amount} from Acc {from_account.account_number}")
 
-        print(f"  ✅ ₹{amount} transferred to {to_account.name} successfully!")
-        print(f"  💰 Your new balance: ₹{from_account.balance}")
+        print(f" ₹{amount} transferred to {to_account.name} successfully!")
+        print(f" Your new balance: ₹{from_account.balance}")
 
     # Delete an account
     def delete_account(self, account):
-        confirm = input(f"\n  ⚠️  Are you sure you want to delete your account? (yes/no) : ").strip()
+        confirm = input(f"\n Are you sure you want to delete your account? (yes/no) : ").strip()
         if confirm.lower() == "yes":
             self.accounts.remove(account)
-            print("  ✅ Account deleted successfully.")
+            print(" Account deleted successfully.")
             return True
         else:
             print("  Cancelled.")
@@ -222,15 +222,15 @@ class Bank:
         print("\n  === Change Password ===")
         old_pass = input("  Enter current password : ").strip()
         if old_pass != account.password:
-            print("  ❌ Wrong password.")
+            print(" Wrong password.")
             return
         new_pass = input("  Enter new password     : ").strip()
         confirm  = input("  Confirm new password   : ").strip()
         if new_pass != confirm:
-            print("  ❌ Passwords do not match.")
+            print(" Passwords do not match.")
             return
         account.password = new_pass
-        print("  ✅ Password changed successfully!")
+        print(" Password changed successfully!")
 
 
 # ---------------------------
@@ -265,14 +265,14 @@ def account_menu(bank, account):
             if amount.isdigit():
                 account.deposit(int(amount))
             else:
-                print("  ❌ Please enter a valid number.")
+                print(" Please enter a valid number.")
 
         elif choice == "3":
             amount = input("  Enter withdrawal amount (₹) : ").strip()
             if amount.isdigit():
                 account.withdraw(int(amount))
             else:
-                print("  ❌ Please enter a valid number.")
+                print("Please enter a valid number.")
 
         elif choice == "4":
             bank.transfer_money(account)
@@ -292,11 +292,11 @@ def account_menu(bank, account):
                 break   # go back to main menu after deletion
 
         elif choice == "0":
-            print(f"\n  👋 Goodbye, {account.name}! Logged out.\n")
+            print(f"\n Goodbye, {account.name}! Logged out.\n")
             break
 
         else:
-            print("  ⚠️  Invalid option. Please try again.")
+            print(" Invalid option. Please try again.")
 
 
 def main_menu(bank):
@@ -304,7 +304,7 @@ def main_menu(bank):
     while True:
         print(f"""
   ╔══════════════════════════════════╗
-  ║   🏦  {bank.bank_name:<28}      ║
+  ║    {bank.bank_name:<28}      ║
   ╠══════════════════════════════════╣
   ║  1. Create New Account           ║
   ║  2. Login to Account             ║
@@ -326,11 +326,11 @@ def main_menu(bank):
             bank.show_all_accounts()
 
         elif choice == "0":
-            print("\n  👋 Thank you for using our bank. Goodbye!\n")
+            print("\n  Thank you for using our bank. Goodbye!\n")
             break
 
         else:
-            print("  ⚠️  Invalid option. Please try again.")
+            print("  Invalid option. Please try again.")
 
 
 # ---------------------------
